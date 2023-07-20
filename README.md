@@ -2,7 +2,7 @@
 A demo on how to use Google Places API and Twilio Whatsapp API to build a place locator
 
 
-# How to set up project
+# how to set up project
 
 - Install the packages using the command below
 ```bash
@@ -22,4 +22,4 @@ npm start
 
 Your application is ready for use and testing on local machine.
 
-# Deployment
+# deployment
