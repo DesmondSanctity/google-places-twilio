@@ -10,9 +10,9 @@ npm install
 ```
 - Create a `.env` file add the following parameters with their value
 ```bash
-TWILIO_AUTH=
+TWILIO_AUTH_TOKEN=
 TWILIO_WHATSAPP_NUMBER=
-TWILIO_SID=
+TWILIO_ACCOUNT_SID=
 GOOGLE_CLOUD_API=
 ```
 - Start the development server with the following command
