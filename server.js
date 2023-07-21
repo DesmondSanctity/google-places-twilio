@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import { handleIncomingMessage } from './functions/index.js';
+import { sendMessage, searchPlaces, getLocation, getQuery } from './functions/index.js';
 
 const app = express();
 
@@ -17,8 +17,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 // Handle incoming messages
-app.post('/incoming-message', async (req, res) => {
-  await handleIncomingMessage(req, res);
+app.post('/chat', async (req, res) => {
+
+  let query;
+  let location;
+
+  // First message
+  if(!req.session.query) {
+    sendMessage('Hi there! Can you share your location?');
+    req.session.state = 'LOCATION';
+
+  // Got location  
+  } else if (req.session.state === 'LOCATION') {
+    location = getLocation(req.body);
+    sendMessage('Thanks! What place are you looking for?');
+    req.session.state = 'QUERY';
+  
+  // Got query
+  } else if(req.session.state === 'QUERY') {
+    query = getQuery(req.body);
+    const places = await searchPlaces(query, location); 
+    sendMessage(`Here are places near you for ${query}:` + places);
+    req.session.state = 'DONE';
+  
+  // Reset
+  } else if (req.session.state === 'DONE') {
+    req.session.query = null; 
+    req.session.state = null;
+    sendMessage('Thanks for using our service! Send any message to start again.', req.body);
+
+  }
+  
+  res.sendStatus(200);
 });
 
 // Start the server
