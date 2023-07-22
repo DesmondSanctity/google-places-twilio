@@ -3,8 +3,12 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import session from 'express-session';
+import dotenv from 'dotenv'
 
 import { sendMessage, searchPlaces, getLocation, getQuery } from './functions/index.js';
+
+
+dotenv.config()
 
 const app = express();
 
