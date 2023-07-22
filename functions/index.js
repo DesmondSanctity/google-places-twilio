@@ -46,12 +46,12 @@ export async function searchPlaces(query, location) {
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.long}&radius=3000&keyword=${query}&key=${googlePlacesKey}`
 
     const response = await axios.get(url);
-    const place = response.data.results;
+    const places = response.data.results;
     // console.log(url)
     // console.log(places)
     // return places.map(place => place.geometry.location);
     let results = []
-    JSON.parse(place).forEach((place) => {
+    places.forEach((place) => {
         results.push({
             name: place.name,
             rating: place.rating,
