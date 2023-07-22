@@ -8,7 +8,6 @@ dotenv.config()
 // Twilio credentials
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const phoneNumber = process.env.TWILIO_WHATSAPP_NUMBER
 
 // Set up Twilio client
 const twilioClient = twilio(accountSid, authToken);
@@ -52,7 +51,7 @@ export function sendMessage(body, recipient) {
 
     return twilioClient.messages.create({
         body: body,
-        from: phoneNumber,
+        from: recipient.To,
         to: recipient.From,
     });
 }
