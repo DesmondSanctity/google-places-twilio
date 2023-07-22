@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
+import session from 'express-session';
 
 import { sendMessage, searchPlaces, getLocation, getQuery } from './functions/index.js';
 
@@ -13,6 +14,12 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.disable('x-powered-by'); // less hackers know about our stack
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
 
 
 

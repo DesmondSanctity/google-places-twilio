@@ -13,6 +13,7 @@ npm install
 TWILIO_AUTH_TOKEN=
 TWILIO_ACCOUNT_SID=
 GOOGLE_CLOUD_API=
+SESSION_SECRET=
 ```
 - Start the development server with the following command
 ```bash
