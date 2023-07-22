@@ -36,7 +36,7 @@ app.post('/chat', async (req, res) => {
   let location;
 
   // First message
-  if(!req.session.query) {
+  if(!req.session.state) {
     sendMessage('Hi there! Can you share your location?', req.body);
     req.session.state = 'LOCATION';
 
