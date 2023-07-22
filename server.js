@@ -49,7 +49,7 @@ app.post('/chat', async (req, res) => {
   // Got query
   } else if(req.session.state === 'QUERY') {
     query = getQuery(req.body);
-    const places = await searchPlaces(query, location); 
+    const places = await searchPlaces(query, req.body); 
     sendMessage(`Here are places near you for ${query}:` + places, req.body);
     req.session.state = 'DONE';
   

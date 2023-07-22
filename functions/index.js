@@ -35,15 +35,13 @@ export function getQuery(message) {
 }
 
 // Search Places API
-export function searchPlaces(query, location) {
+export async function searchPlaces(query, location) {
 
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=500&keyword=${query}&key=${googlePlacesKey}`
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.Latitude},${location.Longitude}&radius=500&keyword=${query}&key=${googlePlacesKey}`
 
-    return axios.get(url)
-        .then(response => {
-            const places = response.data.results;
-            return places.map(place => place.name);
-        });
+    const response = await axios.get(url);
+    const places = response.data.results;
+    return places.map(place => place.geometry.location);
 
 }
 
