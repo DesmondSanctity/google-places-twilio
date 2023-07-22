@@ -37,7 +37,7 @@ export function getQuery(message) {
 // Search Places API
 export async function searchPlaces(query, location) {
 
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.Latitude},${location.Longitude}&radius=500&keyword=${query}&key=${googlePlacesKey}`
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.Latitude},${location.Longitude}&radius=3000&keyword=${query}&key=${googlePlacesKey}`
 
     const response = await axios.get(url);
     const places = response.data.results;
