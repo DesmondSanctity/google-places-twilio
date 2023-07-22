@@ -13,7 +13,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = twilio(accountSid, authToken);
 
 // Google Places API key
-const googlePlacesKey = process.env.GOOGLE_API;
+const googlePlacesKey = process.env.GOOGLE_CLOUD_API;
 
 
 
