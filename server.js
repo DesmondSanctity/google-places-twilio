@@ -36,11 +36,11 @@ app.post('/chat', async (req, res) => {
   let location;
 
   // First message
-  if(!req.session.state) {
+  if (!req.session.state) {
     sendMessage('Hi there! Can you share your location?', req.body);
     req.session.state = 'LOCATION';
 
-  // Got location  
+    // Got location  
   } else if (req.session.state === 'LOCATION') {
     location = getLocation(req.body);
     console.log(location)
@@ -48,23 +48,30 @@ app.post('/chat', async (req, res) => {
     req.session.long = location.long
     sendMessage('Thanks! What place are you looking for?', req.body);
     req.session.state = 'QUERY';
-  
-  // Got query
-  } else if(req.session.state === 'QUERY') {
+
+    // Got query
+  } else if (req.session.state === 'QUERY') {
     query = getQuery(req.body);
-    const places = await searchPlaces(query, req.session); 
+    const places = await searchPlaces(query, req.session);
     console.log(places)
-    sendMessage(`Here are places near you for ${query}:` + places, req.body);
+    sendMessage(`Here are places near you for ${query}:`, req.body);
+
+    places.forEach((place) => {
+      sendMessage(`${place.name}, ${place.rating} rating \nhttps://www.google.com/maps?z=12&t=m&q=loc:${place.location.lat}+${place.location.lng}`, req.body);
+    });
+
     req.session.state = 'DONE';
-  
-  // Reset
+
+    // Reset
   } else if (req.session.state === 'DONE') {
-    req.session.query = null; 
+    req.session.query = null;
     req.session.state = null;
+    req.session.lat = null;
+    req.session.long = null;
     sendMessage('Thanks for using our service! Send any message to start again.', req.body);
 
   }
-  
+
   res.sendStatus(200);
 });
 
