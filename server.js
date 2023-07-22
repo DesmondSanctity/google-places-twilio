@@ -30,12 +30,14 @@ app.use(session({
 // Handle incoming messages
 app.post('/chat', async (req, res) => {
 
+  req.session = req.session || {}; // Initialize if undefined
+
   let query;
   let location;
 
   // First message
   if(!req.session.query) {
-    sendMessage('Hi there! Can you share your location?');
+    sendMessage('Hi there! Can you share your location?', req.body);
     req.session.state = 'LOCATION';
 
   // Got location  
