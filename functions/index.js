@@ -47,6 +47,8 @@ export async function searchPlaces(query, location) {
 
     const response = await axios.get(url);
     const places = response.data.results;
+    console.log(url)
+    console.log(places)
     return places.map(place => place.geometry.location);
 
 }
