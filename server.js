@@ -43,6 +43,7 @@ app.post('/chat', async (req, res) => {
   // Got location  
   } else if (req.session.state === 'LOCATION') {
     location = getLocation(req.body);
+    console.log(location)
     sendMessage('Thanks! What place are you looking for?', req.body);
     req.session.state = 'QUERY';
   
