@@ -20,6 +20,7 @@ const googlePlacesKey = process.env.GOOGLE_CLOUD_API;
 
 // Get location from message
 export function getLocation(message) {
+    console.log(message)
 
     if (message.numMedia > 0) {
         return message.MediaUrl0;
