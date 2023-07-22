@@ -22,8 +22,11 @@ const googlePlacesKey = process.env.GOOGLE_CLOUD_API;
 export function getLocation(message) {
     console.log(message)
 
-    if (message.numMedia > 0) {
-        return message.MediaUrl0;
+    if (message.Longitude && message.Latitude) {
+        return {
+            lat: message.Latitude,
+            long: message.Longitude
+        };
     }
 
     return null;
